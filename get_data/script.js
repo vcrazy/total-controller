@@ -4,7 +4,7 @@ var all_data = {},
 	min = 100,
 	waiting = 100,
 	total_requests = 0,
-	received_requests = 2;
+	received_requests = 2; // 2 requests failed; there are 125 better ways to do this but I don't have time to do so
 
 var step1 = function(){
 	console.log('Started on:', new Date);
@@ -47,9 +47,14 @@ var step3 = function(manufacturer, device){
 		// and we don't need to get all codesets because their differences
 		// are in a part that we don't use
 
-		sequence++;
-		total_requests += 1;
-		setTimeout(step4, get_time(), manufacturer, device, data[0].Key);
+		var l = data.length;
+		total_requests += l;
+		for(var i = 0; i < l; i++){
+			all_data[manufacturer][device][data[i].Key] = {};
+
+			sequence++;
+			setTimeout(step4, get_time(), manufacturer, device, data[i].Key);
+		}
 	});
 };
 
@@ -60,10 +65,6 @@ var step4 = function(manufacturer, device, codeset){
 
 		var l = data.length;
 		for(var i = 0; i < l; i++){
-			if(!all_data[manufacturer][device][data[i].KeyName]){
-				all_data[manufacturer][device][data[i].KeyName] = [];
-			}
-
 			var code = data[i].IRCode.split(',').map(function(e){
 					return e * 1;
 				}),
@@ -71,10 +72,10 @@ var step4 = function(manufacturer, device, codeset){
 
 			code.splice(0, 3); // remove the frequency and two ones (1)
 
-			all_data[manufacturer][device][data[i].KeyName].push({
+			all_data[manufacturer][device][codeset][data[i].KeyName] = {
 				frequency: frequency,
 				code: code
-			});
+			};
 		}
 
 		if(total_requests == received_requests){

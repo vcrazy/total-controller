@@ -1,7 +1,7 @@
 var express = require('express'),
 	app = express(),
 	fs = require('fs'),
-	data_file = './get_data/data.txt',
+	data_file = './get_data/data3.txt',
 	defaults = {
 		port: 9119
 	},
