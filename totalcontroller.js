@@ -22,7 +22,7 @@ app.listen(defaults.port);
 
 // GET '/*' (all)
 app.get('/*', function(req, res){
-	var url = req.url.split('/'),
+	var url = decodeURI(req.url).split('/'),
 		data = [];
 
 	// remove the first '/' and the empty strings
