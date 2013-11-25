@@ -1,0 +1,68 @@
+Power On/Off
+On, Power On/Off
+Off, Power On/Off
+Channel Up
+Channel Down
+Volume Up
+Volume Down
+
+100
+Menu Down, Adjust Down
+Adjust Up
+AUX, RGB
+AV,  TUNER
+Back
+CAB, SAT, S-VIDEO
+Channel Enter
+Delimiter
+Digit 0
+Digit 1
+Digit 2
+Digit 3
+Digit 4
+Digit 5
+Digit 6
+Digit 7
+Digit 8
+Digit 9
+Display, OSD, Info
+Exit, Cancel
+External Antenna
+Fast Forward
+Menu Left
+Format, Wide, 16:9,
+Guide
+Last Channel
+Menu (Audio)
+Menu (Picture)
+Menu Up, Adjust Up
+Menu Select
+Mute
+Pause
+PIP Channel Down
+PIP Channel Up
+PIP Freeze
+PIP Input
+PIP Move
+PIP Multi
+PIP OFF
+PIP ON
+PIP Swap
+Play
+
+Record
+Rewind
+SAP, CC
+Skip Down
+Skip Up
+Slow
+Stop
+Surround On/Off
+TV, COMPONENT
+TV/Video
+VID1, Video, TVp1
+VID2, TVp2
+VID3, TVp3
+VID4, TVp4
+VID5, AV1, VCR, BNC
+VID6, AV2, VDP, DVD,DVI
