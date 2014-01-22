@@ -4,7 +4,7 @@ var express = require('express'),
 	data_file = './get_data/data5.txt';
 
 fs.readFile(data_file, 'utf8', function(err, data) {
-	var data = JSON.parse(data);
+	data = JSON.parse(data);
 
 	for(var m in data){
 		var k;
