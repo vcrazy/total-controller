@@ -1,0 +1,9 @@
+{
+	"name": "get_remote_central_data",
+	"version": "0.1",
+	"manifest_version": 2,
+	"content_scripts": [{
+		"matches": ["http://www.remotecentral.com/cgi-bin/codes/*"],
+		"js": ["jquery-1.10.2.min.js", "script.js"]
+	}]
+}
