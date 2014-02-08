@@ -46,7 +46,7 @@ var e = {
 	},
 
 	get_manufacturers: function(){
-		db.query("SELECT manufacturer_name FROM manufacturers;", function(err, data){
+		db.query("SELECT manufacturer_name FROM manufacturers ORDER BY manufacturer_name;", function(err, data){
 			if(err){
 				e.send([]);
 				return;
@@ -61,9 +61,9 @@ var e = {
 	},
 
 	get_devices: function(manufacturer){
-		db.query("SELECT DISTINCT device_type FROM codesets WHERE manufacturer_id = (" +
+		db.query("SELECT device_type FROM codesets WHERE manufacturer_id = (" +
 			"SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name LIKE ? LIMIT 1" +
-		");", [manufacturer], function(err, data){
+		") GROUP BY device_type ORDER BY codeset_id", [manufacturer], function(err, data){
 			if(err){
 				e.send([]);
 				return;
@@ -80,7 +80,7 @@ var e = {
 	get_codes: function(manufacturer, device_type){
 		db.query("SELECT codeset_id, codeset FROM codesets WHERE manufacturer_id = (" +
 			"SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name LIKE ? LIMIT 1" +
-		") AND device_type LIKE ?;", [manufacturer, device_type], function(err, data){
+		") AND device_type LIKE ? ORDER BY codeset_id;", [manufacturer, device_type], function(err, data){
 			if(err){
 				e.send({});
 				return;

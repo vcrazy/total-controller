@@ -299,4 +299,34 @@ var import_data = function(){
 //		}
 //	});
 //
+
+	fs.readFile('../remotecentral/remotecentral.txt', 'utf-8', function(err, data){
+		data = JSON.parse(data);
+
+		for(var i in data){
+			(function(m, devices){
+				connection.query("SELECT manufacturer_id FROM manufacturers WHERE LOWER(manufacturer_name) LIKE LOWER(?) LIMIT 1;", [m], function(err, matches){
+//					if(!matches.length){
+//						connection.query("INSERT INTO manufacturers (manufacturer_name) VALUES (?)", [m], function(err, result){
+//							console.log(err, result);
+//						});
+//					}
+
+					var manufacturer_id = matches[0].manufacturer_id;
+
+					for(var j in devices){
+						for(var k in devices[j]){
+							devices[j][k] = {
+								frequency: 38000,
+								code: devices[j][k]
+							};
+						}
+
+						connection.query("INSERT INTO codesets (manufacturer_id, device_type, codeset) VALUES (?, ?, ?)", [manufacturer_id, j, JSON.stringify(devices[j])]);
+					}
+				});
+			})(i, data[i]);
+		}
+	});
+
 };
