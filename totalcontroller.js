@@ -10,7 +10,7 @@ app.listen(defaults.port);
 
 // GET '/*' (all)
 app.get('/*', function(req, res){
-	var url = decodeURI(req.url).split('/'),
+	var url = decodeURIComponent(req.url).split('/'),
 		version = 1; // be default
 
 	// remove the first '/' and the empty strings
