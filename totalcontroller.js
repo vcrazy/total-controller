@@ -1,6 +1,7 @@
 var express = require('express'),
 	app = express(),
 	versions = {},
+	helper = require('./helper'),
 	defaults = {
 		port: 9119
 	};
@@ -8,25 +9,15 @@ var express = require('express'),
 // start the drums
 app.listen(defaults.port);
 
+// for the post requests
+app.use(require('connect').bodyParser());
+
 // GET '/*' (all)
 app.get('/*', function(req, res){
-	var url = decodeURIComponent(req.url).split('/'),
-		version = 1; // be default
-
-	// remove the first '/' and the empty strings
-	url.shift();
-	url = url.filter(function(e){
-		return e;
-	});
-
-	// version switcher
-	if(url[0] === 'v2'){
-		url.shift(); // remove the version
-
-		version = 2;
-	}
-
-	var manufacturer = url[0],
+	var request_url = req.url,
+		url = helper.get_url(request_url),
+		version = helper.get_version(request_url),
+		manufacturer = url[0],
 		device_type = url[1];
 
 	versions[version].configure({
@@ -48,6 +39,26 @@ app.get('/*', function(req, res){
 			break;
 		default:
 			break;
+	}
+});
+
+// POST '/*' (all)
+app.post('/*', function(req, res){
+	var request_url = req.url,
+		url = helper.get_url(request_url),
+		version = helper.get_version(request_url),
+		action = url[0],
+		data = req.body;
+
+	versions[version].configure({
+		res: res
+	});
+
+	// allowed post urls
+	if(['comment'].indexOf(action) > -1){
+		versions[version].post(action, data);
+	}else{
+		res.send({});
 	}
 });
 

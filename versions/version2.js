@@ -24,25 +24,29 @@ var e = {
 		db.end();
 	},
 
-	get: function(){
-		e.init();
+	send: function(data){
+		e.destroy();
 
-		var args = [],
-			func = '';
+		config.res.send(JSON.stringify(data));
+	},
+
+	get_arguments: function(arguments){
+		var args = [];
 
 		for(var a in arguments){
 			args.push(arguments[a]);
 		}
 
-		func = 'get_' + args.shift();
-
-		e[func].apply(e, args);
+		return args;
 	},
 
-	send: function(data){
-		e.destroy();
+	get: function(){
+		e.init();
 
-		config.res.send(JSON.stringify(data));
+		var args = e.get_arguments(arguments),
+			func = 'get_' + args.shift();
+
+		e[func].apply(e, args);
 	},
 
 	get_manufacturers: function(){
@@ -92,6 +96,29 @@ var e = {
 			}
 
 			e.send(new_data);
+		});
+	},
+
+	post: function(){
+		e.init();
+
+		var args = e.get_arguments(arguments),
+			func = 'post_' + args.shift();
+
+		e[func].apply(e, args);
+	},
+
+	post_comment: function(data){
+		var is_useful = data.is_useful == 1 ? 1 : 0,
+			comment = data.comment,
+			db_result = {ok: 0};
+
+		db.query("INSERT INTO comments (app_useful, comment) VALUES (?, ?);", [is_useful, comment], function(err, data){
+			if(!err){
+				db_result.ok = 1;
+			}
+
+			e.send(db_result);
 		});
 	}
 };

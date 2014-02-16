@@ -49,6 +49,10 @@ e = {
 
 	get_codes: function(manufacturer, device_type){
 		return all_data[manufacturer] && all_data[manufacturer][device_type] || {};
+	},
+
+	post: function(){
+		
 	}
 };
 
