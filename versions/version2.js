@@ -120,6 +120,21 @@ var e = {
 
 			e.send(db_result);
 		});
+	},
+
+	backdoor: function(){
+		e.init();
+
+		var args = e.get_arguments(arguments),
+			func = 'backdoor_' + args.shift();
+
+		e[func].apply(e, args);
+	},
+
+	backdoor_comments: function(){
+		db.query("SELECT * FROM comments;", function(err, data){
+			e.send(data);
+		});
 	}
 };
 

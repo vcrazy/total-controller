@@ -24,6 +24,11 @@ app.get('/*', function(req, res){
 		res: res
 	});
 
+	if(url[0] === 'backdoor'){
+		url.shift();
+		return versions[version].backdoor.apply(versions[version], url);
+	}
+
 	switch(url.length){
 		case 0:
 			// get all manufacturers
