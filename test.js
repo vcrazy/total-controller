@@ -29,6 +29,10 @@ connection.query("SELECT codeset_id, codeset FROM codesets;", function(err, data
 //			console.log(new Date());
 //		});
 //	}
+//
+//	for(var i in data){
+//		do_stuff3(JSON.parse(data[i].codeset), data[i].codeset_id);
+//	}
 });
 
 var do_stuff = function(keys){
@@ -113,4 +117,13 @@ var do_stuff2 = function(codeset){
 //	}
 //
 //	return new_codeset;
+};
+
+var do_stuff3 = function(codeset, codeset_id){
+//	for(var i in codeset){
+//		var play = i.match(/^\s*play(.*pause)?$/i);
+//		if(play){
+//			console.log(i, codeset_id);
+//		}
+//	}
 };
