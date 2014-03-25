@@ -17,9 +17,22 @@ var helper = {
 		// version switcher
 		if(url[0] === 'v2'){
 			url.shift(); // remove the version
+		}else if(url[0] === 'v3'){
+			url.shift(); // remove the version
+			url.shift(); // remove the command
 		}
 
 		return url;
+	},
+
+	get_endpoint: function(url){
+		var endpoint;
+
+		url = helper.get_url_filtered(url);
+
+		endpoint = url[1] || '';
+
+		return endpoint;
 	},
 
 	get_version: function(url){
@@ -30,9 +43,15 @@ var helper = {
 		// version switcher
 		if(url[0] === 'v2'){
 			version = 2;
+		}else if(url[0] === 'v3'){
+			version = 3;
 		}
 
 		return version;
+	},
+
+	get_method: function(req){
+		return req.method.toLowerCase();
 	}
 };
 
