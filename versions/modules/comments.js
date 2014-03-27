@@ -1,13 +1,9 @@
 var e = {
 	init: function(config){
-		var available_methods = ['get', 'post'],
-			filename = config.common.get_filename(__filename);
+		var module = config.common.get_filename(__filename),
+			methods = ['get', 'post'];
 
-		for(var i in available_methods){
-			var method = available_methods[i];
-
-			e[method] = require('./' + filename + '/' + method).init(config)[method];
-		}
+		config.loader.load_methods.apply(e, [module, methods, config]);
 
 		return e;
 	}

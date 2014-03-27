@@ -23,13 +23,14 @@ api_requests = function(req, res){
 
 	versions[version].init({
 		common: require('./common'),
+		loader: require('./loader'),
 		db: require('./db').init(),
 		print: res
 	});
 
 	try{
 		// ex: versions[3][comments][get].apply(versions[3], [comments, all])
-		versions[version][endpoint][method].apply(versions[version], url);
+		versions[version][endpoint][method].apply(null, url);
 	}catch(ex){ // catch the ex hohoh
 		console.log('invalid request', req.url, req.headers, req.connection.remoteAddress);
 		res.json([]);

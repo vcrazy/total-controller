@@ -1,3 +1,9 @@
+/**
+ * A file that consists of the 'get' method and others that 'get' calls whenever
+ * it needs it.
+ * All the other rest methods are in different files.
+ */
+
 var common,
 	db,
 	print;

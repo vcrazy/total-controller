@@ -1,12 +1,15 @@
+/**
+ * Here we load all modules that are allowed to be used.
+ * The load_modules in the context of this object will
+ * make keys on this for each module whose value will be the module itself =
+ * object with keys the rest methods.
+ */
+
 var e = {
 	init: function(config){
 		var modules = ['remotes', 'comments'];
 
-		for(var i in modules){
-			var module = modules[i];
-
-			e[module] = require('./modules/' + module).init(config);
-		}
+		config.loader.load_modules.apply(e, [modules, config]);
 	}
 };
 
