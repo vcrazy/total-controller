@@ -1,6 +1,6 @@
 /**
  * A file that consists of the 'get' method and others that 'get' calls whenever
- * it needs it.
+ * it needs them.
  * All the other rest methods are in different files.
  */
 
