@@ -25,7 +25,8 @@ api_requests = function(req, res){
 		common: require('./common'),
 		loader: require('./loader'),
 		db: require('./db').init(),
-		print: res
+		print: res,
+		body: req.body
 	});
 
 	try{

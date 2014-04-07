@@ -1,17 +1,19 @@
 var db,
-	print;
+	print,
+	body;
 
 var e = {
 	init: function(config){
 		db = config.db;
 		print = config.print;
+		body = config.body;
 
 		return e;
 	},
 
 	post: function(){
-		var is_useful = data.is_useful == 1 ? 1 : 0,
-			comment = data.comment,
+		var is_useful = body.is_useful == 1 ? 1 : 0,
+			comment = body.comment,
 			db_result = {ok: 0};
 
 		db.query("INSERT INTO comments (app_useful, comment) VALUES (?, ?);", [is_useful, comment], function(err, data){
