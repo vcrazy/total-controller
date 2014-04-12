@@ -5,11 +5,23 @@
  * object with keys the rest methods.
  */
 
+var config = {};
+
 var e = {
-	init: function(config){
+	configure: function(new_config){
+		config = new_config;
+	},
+
+	init: function(new_config){
 		var modules = ['remotes', 'comments'];
 
-		config.loader.load_modules.apply(e, [modules, config]);
+		for(var i in config){
+			if(new_config[i] === undefined){
+				new_config[i] = config[i];
+			}
+		}
+
+		new_config.loader.load_modules.apply(e, [modules, new_config]);
 	}
 };
 

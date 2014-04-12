@@ -1,9 +1,12 @@
+// node --expose-gc totalcontroller.js
+
 var express = require('express'),
 	app = express(),
 	versions = {},
 	helper = require('./helper'),
 	port = 9119,
-	api_requests;
+	api_requests,
+	run;
 
 // start the drums
 app.listen(port);
@@ -15,6 +18,10 @@ app.use(require('connect').bodyParser());
 
 // handle the new requests
 api_requests = function(req, res){
+	if(typeof gc === 'function'){
+		gc(); // collect garbage now
+	}
+
 	var request_url = req.url,
 		url = helper.get_url(request_url),
 		version = helper.get_version(request_url),
@@ -22,9 +29,6 @@ api_requests = function(req, res){
 		method = helper.get_method(req);
 
 	versions[version].init({
-		common: require('./common'),
-		loader: require('./loader'),
-		db: require('./db').init(),
 		print: res,
 		body: req.body
 	});
@@ -51,8 +55,8 @@ app.get('/*', function(req, res){
 		manufacturer = url[0],
 		device_type = url[1];
 
-	if(version > 2){
-		return res.json();
+	if(version != 2){
+		return res.json([]);
 	}
 
 	versions[version].configure({
@@ -90,8 +94,8 @@ app.post('/*', function(req, res){
 		action = url[0],
 		data = req.body;
 
-	if(version > 2){
-		return res.json();
+	if(version != 2){
+		return res.json([]);
 	}
 
 	versions[version].configure({
@@ -106,15 +110,18 @@ app.post('/*', function(req, res){
 	}
 });
 
-var reload = function(){
-	versions['1'].init();
-};
-
-versions['1'] = require('./versions/version1');
+// load versions
 versions['2'] = require('./versions/version2');
 versions['3'] = require('./versions/version3');
 
-// start
-reload();
+// what to ru on startup
+run = function(){
+	versions['3'].configure({
+		common: require('./common'),
+		loader: require('./loader'),
+		db: require('./db').init()
+	});
+};
 
-setInterval(reload, 1 * 60 * 60 * 1000);
+// start
+run();
