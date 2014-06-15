@@ -6,8 +6,8 @@ class Module
 
 	public function __call($name, $arguments)
 	{
-		$include_file_path = 'modules/' . get_called_class() . '/' . $name . '.php';
-		$include_file_class = get_called_class() . '_' . $name;
+		$include_file_path = 'modules/' . get_called_class() . '/' .  ucfirst($name) . '.php';
+		$include_file_class = get_called_class() . '_' . ucfirst($name);
 
 		if(!file_exists($include_file_path))
 		{
