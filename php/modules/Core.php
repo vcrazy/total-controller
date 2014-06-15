@@ -6,7 +6,7 @@ abstract class Core
 
 	public function __construct()
 	{
-		$this->db = ADONewConnection('mysqli');
+		$this->db = ADONewConnection('mysql');
 		$this->db->Connect('localhost', 'root', '', 'totaldata');
 	}
 }
