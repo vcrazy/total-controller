@@ -11,7 +11,7 @@ class Remotes extends Module
 		return parent::__call($name, $arguments);
 	}
 
-	public function get($request_uri)
+	protected function get($request_uri)
 	{
 		list($manufacturer, $device_type) = $request_uri;
 

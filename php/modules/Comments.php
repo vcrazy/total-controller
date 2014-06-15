@@ -12,12 +12,12 @@ class Comments extends Module
 		return parent::__call($name, $arguments);
 	}
 
-	public function get()
+	protected function get()
 	{
 		return $this->obj->{__FUNCTION__}();
 	}
 
-	public function post($request_uri, $post_data)
+	protected function post($request_uri, $post_data)
 	{
 		return $this->obj->{__FUNCTION__}($post_data['app_useful'], $post_data['comment']);
 	}
