@@ -4,14 +4,14 @@ include_once 'modules/Module.php';
 
 class Remotes extends Module
 {
-	protected $obj;
+	public $obj;
 
 	public function __call($name, $arguments)
 	{
 		return parent::__call($name, $arguments);
 	}
 
-	protected function get($request_uri)
+	public function get($request_uri)
 	{
 		list($manufacturer, $device_type) = $request_uri;
 

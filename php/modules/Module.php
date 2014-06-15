@@ -2,7 +2,7 @@
 
 class Module
 {
-	protected $obj;
+	public $obj;
 
 	public function __call($name, $arguments)
 	{
