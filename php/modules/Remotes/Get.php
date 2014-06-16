@@ -61,6 +61,11 @@ class Remotes_Get extends Core
 				ORDER BY codeset_id;
 		", array($manufacturer_id, $device_type));
 
+		foreach($data as &$data_value)
+		{
+			$data_value = json_decode($data_value, TRUE);
+		}
+
 		return $data;
 	}
 
