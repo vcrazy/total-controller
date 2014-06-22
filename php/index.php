@@ -6,7 +6,9 @@ include 'adodb/adodb.inc.php';
 
 $result = array();
 
-$request_uri = explode('/', $_SERVER['REQUEST_URI']);
+$request_uri = urldecode($_SERVER['REQUEST_URI']);
+
+$request_uri = explode('/', $request_uri);
 
 array_shift($request_uri); // remove the starting /
 
